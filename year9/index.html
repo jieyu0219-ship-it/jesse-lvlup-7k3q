@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1226">
+<meta name="robots" content="noindex, nofollow">
+<title>Jesse 九年级 · 六科 A 大冒险 Year 9 Quest</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#0f1226;--card:#1a1e3d;--card2:#20254a;--line:#3a4080;--y:#ffcc33;--b:#3ec5ff;--g:#2ee59d;--o:#ff9d3d;--p:#ff7ab6;--r:#ff5c7a;--v:#7c5cff;--t:#eef0ff;--m:#a9afd9}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Noto Sans SC",Roboto,sans-serif;font-size:16px;line-height:1.5}
+body{padding:env(safe-area-inset-top) 0 calc(78px + env(safe-area-inset-bottom))}
+#app{max-width:520px;margin:0 auto;padding:12px 14px}
+.top{display:flex;gap:8px;align-items:center;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
+.pill{background:var(--card2);border-radius:999px;padding:6px 12px;font-weight:700;font-size:15px;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0}
+.hero{background:linear-gradient(135deg,#ff7ab6,#7c5cff 55%,#3ec5ff);border:none}
+.hero h1{margin:0;font-size:22px}
+h2{font-size:19px;margin:4px 0 8px}
+h3{font-size:16px;margin:12px 0 6px;color:var(--y)}
+.sub{color:var(--m);font-size:13px}
+.hero .sub{color:#fff;opacity:.9}
+.btn{display:block;width:100%;border:none;border-radius:16px;padding:13px;font-size:17px;font-weight:800;background:var(--y);color:#1b1b1b;box-shadow:0 5px 0 #b38a00;margin:10px 0;cursor:pointer}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #b38a00}
+.btn.sec{background:var(--card2);color:var(--t);box-shadow:0 4px 0 #0a0c1c}
+.btn.small{display:inline-block;width:auto;padding:7px 12px;font-size:14px;margin:4px 4px 4px 0}
+.row{display:flex;gap:8px;align-items:center}
+.mission{display:flex;gap:12px;align-items:center;padding:11px 12px;background:var(--card2);border-radius:14px;margin:8px 0;cursor:pointer;border:2px solid transparent}
+.mission.done{border-color:var(--g);background:#11493a}
+.mission .ic{font-size:26px}
+.mission .xp{margin-left:auto;font-weight:800;color:var(--y);font-size:14px;white-space:nowrap}
+.mission .tt{font-weight:700}
+.chk{width:26px;height:26px;border-radius:8px;border:2px solid var(--m);display:flex;align-items:center;justify-content:center;flex:none}
+.done .chk{background:var(--g);border-color:var(--g);color:#06331f}
+.bar{height:10px;background:#0c0f22;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--b));border-radius:99px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.badge{background:var(--card2);border-radius:14px;padding:8px 4px;text-align:center;font-size:12px;opacity:.35}
+.badge.on{opacity:1;border:1px solid var(--y)}
+.badge b{display:block;font-size:26px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#11142b;border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);z-index:20}
+nav button{flex:1;max-width:104px;background:none;border:none;color:var(--m);padding:8px 0 9px;font-size:11px;cursor:pointer}
+nav button b{display:block;font-size:22px}
+nav button.on{color:var(--y)}
+.w{border-bottom:1px dotted rgba(62,197,255,.7);cursor:pointer}
+.en{color:#bfe9ff}
+.zh{color:var(--m);font-size:14px}
+.q{font-size:18px;font-weight:700;margin:8px 0}
+.opt{display:block;width:100%;text-align:left;background:var(--card2);color:var(--t);border:2px solid var(--line);border-radius:14px;padding:11px 12px;margin:8px 0;font-size:15px;cursor:pointer}
+.opt.ok{border-color:var(--g);background:#11493a}
+.opt.bad{border-color:var(--r);background:#4d1a2a}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:#1d2248;border-top:2px solid var(--b);border-radius:20px 20px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom));z-index:50;max-width:520px;margin:0 auto;box-shadow:0 -10px 30px #0009;transform:translateY(110%);transition:transform .2s}
+.sheet.open{transform:none}
+.sheet .big{font-size:26px;font-weight:800;color:var(--b)}
+.sheet .zhbig{font-size:20px;margin:4px 0 10px}
+input,textarea,select{width:100%;background:#0c0f22;color:var(--t);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:16px;font-family:inherit}
+textarea{min-height:90px}
+.wordrow{display:flex;justify-content:space-between;gap:8px;padding:9px 2px;border-bottom:1px solid #2a2f5c}
+.wordrow b{color:var(--b)}
+details{background:var(--card2);border-radius:14px;padding:10px 12px;margin:8px 0}
+summary{font-weight:700;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{border-bottom:1px solid #2a2f5c;padding:6px 4px;text-align:left;vertical-align:top}
+.gsel{display:flex;gap:4px}
+.gsel button{flex:1;border:1px solid var(--line);background:#0c0f22;color:var(--m);border-radius:10px;padding:6px 0;font-weight:800;cursor:pointer}
+.gsel button.on.A{background:var(--g);color:#06331f}.gsel button.on.B{background:var(--b);color:#062233}.gsel button.on.C{background:var(--o);color:#331a06}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--y);color:#1b1b1b;font-weight:800;padding:10px 18px;border-radius:99px;z-index:60;display:none}
+.tag{display:inline-block;background:var(--v);border-radius:99px;padding:1px 9px;font-size:12px;margin:2px 3px 2px 0}
+.stepbox{display:flex;flex-wrap:wrap;gap:8px}
+.stepbox button{background:var(--card2);color:var(--t);border:2px solid var(--line);border-radius:12px;padding:9px 11px;font-size:15px;cursor:pointer}
+.stepbox button.used{opacity:.3}
+.days{display:flex;justify-content:space-between;margin-top:8px}
+.days span{width:36px;height:36px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px}
+.days span.d{background:var(--g);color:#06331f;font-weight:800}
+.days span.t{outline:2px solid var(--y)}
+.prize{display:flex;gap:6px;justify-content:center;margin:8px 0}
+.prize div{background:#ffffff33;border-radius:12px;padding:6px 8px;text-align:center;font-size:12px;font-weight:700}
+.prize div b{display:block;font-size:24px}
+a{color:var(--b)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="app"></div>
+<nav id="nav"></nav>
+<div class="sheet" id="sheet"></div>
+<script>
+const GLOSS_RAW=`a|一个
+about|关于
+above|高于；在……上面
+account|说明；解释原因
+achieve|实现；达到
+achievement|成就；成绩
+across|跨越；在整个……
+action|行动
+add|加；添加
+advanced|高级的；优秀（A 等级）
+after|在……之后
+again|再一次
+algorithm|算法
+all|所有
+also|也
+an|一个
+analyse|分析：拆开、找联系、说为什么重要
+analysis|分析
+analytical|分析性的
+and|和
+answer|答案；回答
+any|任何
+apple|苹果
+apply|运用；应用
+are|是
+argument|论点；论证
+as|作为；因为
+ask|问；要求
+asks|问；要求
+assess|评估：判断有多大、多好
+assessment|评估；测验任务
+at|在
+author|作者
+auto-play|自动播放
+automatically|自动地
+badge|徽章
+be|是
+because|因为
+bees|蜜蜂
+before|在……之前
+being|是（进行时）
+between|在……之间
+book|书
+boss|老板；（游戏）大关头目
+both|两者都
+brain|大脑
+break|休息；间隔
+bring|带来
+brings|带来
+broaden|扩大；拓宽
+build|建立
+but|但是
+by|通过；被
+can|能够
+cause|原因；导致
+challenge|挑战
+change|变化；改变
+characteristics|特征
+check|检查
+chinese|中文；中国的
+clear|清楚的
+clip|片段
+common|常见的；共同的
+compare|比较：说出相同和不同
+competence|能力
+conclusion|结论
+connect|连接；联系
+connected|有联系的
+connection|联系
+connections|联系；（学校）联结活动周
+consequently|因此
+content|内容
+contrast|对比
+criteria|标准
+daily|每天的
+data|数据
+day|天
+decide|决定
+decode|解码；拆题
+decoder|解码器
+deep|深的
+deeper|更深
+deeply|深入地
+depth|深度
+describe|描述：写出特点、是什么样
+design|设计
+designed|被设计的
+determine|确定
+develop|发展；展开
+developed|展开的；发达的
+different|不同的
+discuss|讨论：正反两面
+do|做
+does|做
+done|完成
+down|向下
+draft|草稿
+draw|画；得出
+due|到期
+each|每个
+easy|容易的
+effect|效果；结果
+energy|能量；活力
+engages|投入；参与
+english|英语
+enjoys|喜欢
+essay|论文；文章
+evaluate|评价：按标准下结论
+evidence|证据
+evident|明显的
+example|例子
+exam|考试
+examine|调查；仔细研究
+excellent|优秀的
+explain|解释：写清楚怎么发生、为什么
+explore|探索
+extensive|广泛的
+farming|农业
+features|特点
+feedback|反馈
+find|发现；觉得
+focus|重点；集中
+for|为了
+friends|朋友
+from|从
+game|游戏
+geography|地理
+get|得到
+goal|目标
+grade|等级
+great|很好的；伟大的
+habit|习惯
+happen|发生
+happens|发生
+hard|难的
+he|他
+help|帮助
+helpful|有帮助的
+high|高的
+him|他（宾格）
+his|他的
+history|历史
+holiday|假期
+hook|吸引
+hooked|上瘾的
+how|怎么；如何
+however|然而
+hour|小时
+i|我
+idea|想法；观点
+ideas|想法；观点
+identify|指出；识别
+if|如果
+implications|影响；含义
+important|重要的
+in|在……里
+investigate|调查
+is|是
+it|它
+its|它的
+justify|证明：给出理由支持观点
+just|只是
+key|关键的
+knowledge|知识
+learn|学习
+learning|学习
+less|更少
+level|等级；关卡
+like|像；喜欢
+link|联系；回扣
+long|长的
+look|看
+make|使；做
+many|很多
+mark|分数
+marks|分数
+matter|重要
+matters|重要
+maths|数学
+meaning|意思
+mind|头脑
+minute|分钟
+minutes|分钟
+mission|任务
+moment|时刻
+more|更多
+most|大多数；最
+movie|电影
+my|我的
+name|名字；说出名称
+natural|自然的
+need|需要
+never|从不
+new|新的
+next|下一个
+no|没有
+not|不
+notebook|笔记本
+now|现在
+of|……的
+often|经常
+on|在……上
+one|一
+only|只
+or|或者
+order|顺序
+other|其他的
+outline|概述：写主要特点
+outcomes|结果
+own|自己的
+paragraph|段落
+paragraphs|段落
+particularly|特别地
+peel|PEEL 段落：观点、证据、解释、回扣
+plan|计划；列提纲
+play|玩；播放
+plays|播放
+pleased|高兴的
+point|观点；要点
+points|观点；要点
+popular|受欢迎的
+positive|积极的
+potential|潜力
+practice|练习
+process|过程
+processes|过程
+progress|进步
+question|问题
+questions|问题
+quickly|很快地
+quote|引文
+read|读
+reading|阅读
+readily|熟练地；容易地
+reason|原因
+reasons|原因
+recognise|识别
+regular|经常的；规律的
+relate|联系
+relationship|关系
+relationships|关系
+reliable|可靠的
+reluctant|不情愿的
+response|回答；作答
+responses|回答；作答
+result|结果
+reveals|揭示
+reward|奖励
+rushes|匆忙做
+same|相同的
+school|学校
+science|科学
+scrolling|刷（屏幕）
+should|应该
+show|显示；表明
+shows|显示；表明
+significant|重要的；显著的
+similar|相似的
+situations|情境
+size|大小
+skills|技能
+slow|慢的；放慢
+so|所以
+some|一些
+something|某事
+sometimes|有时
+source|史料；来源
+sources|史料；来源
+start|开始
+starts|开始
+state|说明；陈述
+step|步骤
+steps|步骤
+stop|停止
+stopping|停止
+streak|连续打卡
+strengthen|加强
+structure|结构
+struggle|努力挣扎；很难做到
+student|学生
+subject|科目
+subjects|科目
+suggests|暗示；说明
+support|支持
+task|任务
+tasks|任务
+teacher|老师
+teachers|老师
+teenagers|青少年
+term|学期；术语
+that|那个；……的
+the|这；那
+their|他们的
+them|他们
+then|然后
+there|那里；有
+therefore|因此
+these|这些
+they|他们
+thing|东西；事情
+things|东西；事情
+think|想；认为
+this|这个
+those|那些
+to|到；去
+today|今天
+topic|话题；主题
+turns|变成
+understanding|理解
+underdeveloped|没有展开的
+up|向上
+use|使用
+uses|使用
+value|价值
+very|非常
+video|视频
+videos|视频
+vocabulary|词汇
+was|是（过去式）
+way|方式
+we|我们
+week|周
+weekly|每周的
+well|好
+what|什么
+when|当……时
+where|哪里
+which|哪个
+while|而；当……时
+why|为什么
+will|将会
+with|和；用
+word|单词
+words|单词
+work|工作；作业
+would|会
+write|写
+writing|写作
+written|书面的
+year|年；年级
+you|你
+your|你的
+ideal|理想的
+tiny|很小的
+house|房子
+desert|沙漠
+cats|猫
+dogs|狗
+pets|宠物
+team|队
+season|赛季
+renewable|可再生的
+sources|来源；史料
+steps|步骤
+making|做
+sandwich|三明治
+choice|选择
+best|最好的
+superhero|超级英雄
+impact|影响
+smartphones|智能手机
+smartphone|智能手机
+sleep|睡眠
+popularity|受欢迎程度
+short|短的
+exercise|运动
+improves|改善
+mood|心情
+summer|夏天
+pros|好处
+cons|坏处
+homework|家庭作业
+foods|食物
+bad|坏的
+app|应用程序 App
+everyday|每天的
+useful|有用的
+main|主要的
+character|人物
+pollinate|授粉
+crops|农作物
+food|食物
+apples|苹果
+almonds|杏仁
+strawberries|草莓
+pollen|花粉
+carried|被带着
+flower|花
+flowers|花
+fruit|水果
+farmers|农民
+bigger|更大的
+harvests|收成
+without|没有
+farms|农场
+produce|生产
+much|很多
+breakfast|早餐
+students|学生
+watching|看
+device|设备
+planning|计划
+beats|胜过
+rushing|匆忙
+sentence|句子
+round|一轮
+finish|完成
+quest|冒险任务
+keeps|保持
+pick|挑选
+latest|最新的
+report|报告
+interim|阶段（报告）
+semester|学期
+review|复习；回顾
+weekly|每周的
+detective|侦探
+builder|建造者
+finished|完成了
+backup|备份
+restore|恢复
+code|代码
+settings|设置
+rewards|奖励
+milestones|里程碑
+mine|我的
+built-in|内置的
+look|看
+lookup|查找
+search|搜索
+collect|收集
+first|第一
+defeated|被打败
+power|力量
+others|其他
+electives|选修课
+compulsory|必修的
+visual|视觉的
+arts|艺术
+focus|重点
+commerce|商业
+international|国际的
+studies|研究
+entrepreneurship|创业
+interview|面谈
+marking|评分
+criteria|标准
+technique|手法
+working|解题过程
+path|路径
+hypothesis|假设
+variables|变量
+limitations|局限
+fieldwork|实地考察
+cyber|网络
+games|游戏
+indigenous|原住民的
+human|人类的
+experiences|经验
+shakespeare|莎士比亚
+topic|话题
+test|测验
+yearly|年度的
+month|月
+audiobook|有声书
+news|新闻
+behind|在……后面
+harnessed|驾驭
+wind|风
+young|年轻的
+readers|读者
+edition|版本
+boy|男孩
+overboard|落水
+refugee|难民
+once|曾经；一次
+animal|动物
+farm|农场
+tomorrow|明天
+war|战争
+began|开始了
+martian|火星人
+classroom|课堂
+holes|洞
+maus|（书名）鼠族
+missing|缺交的
+watch|手表
+ipad|平板 iPad
+iphone|苹果手机 iPhone
+macbook|苹果电脑 MacBook
+airpods|苹果耳机 AirPods
+mum|妈妈
+keeps|保持；遵守
+her|她的
+enjoy|享受
+rest|休息
+abc|澳洲广播公司 ABC
+btn|ABC 少年新闻节目
+nesa|新州教育标准局
+seqta|学校门户网站
+google|谷歌
+pdhpe|个人发展、健康与体育
+peel|PEEL 段落：观点、证据、解释、回扣
+teel|TEEL 段落：主题句、证据、解释、回扣
+kerv|KERV：关键术语、例子、回应材料、扣动词
+xp|经验值（积分）
+lv|等级
+tap|点一下
+correct|正确的
+try|尝试
+again|再
+paragraphs|段落
+read|读
+days|天
+new|新的
+another|另一个
+own|自己的
+frames|句型框架
+`;
+const GL={};GLOSS_RAW.trim().split('\n').forEach(l=>{const[a,b]=l.split('|');if(a)GL[a.trim().toLowerCase()]=b.trim()});
+const KEY='jesse-y9-quest-v1';
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const def={xp:0,days:{},words:[],verbRight:0,verbPlays:0,orderWins:0,peelWins:0,writes:[],books:{},subjects:['英语 English','数学 Maths','科学 Science','历史 History','地理 Geography','体育健康 PDHPE'],grades:{},miles:{},badges:{},mode:'auto'};
+let S;try{S=Object.assign({},def,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){S=Object.assign({},def)}
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',1800)}
+function addXP(n,why){S.xp+=n;save();toast('+'+n+' XP '+(why||''));checkBadges()}
+const level=()=>Math.floor(S.xp/100)+1;
+function dayRec(d){return S.days[d]||(S.days[d]={})}
+function dayDone(d){const r=S.days[d];return r&&Object.keys(r).some(k=>r[k])}
+function streak(){let n=0;const d=new Date();if(!dayDone(fmt(d)))d.setDate(d.getDate()-1);for(let i=0;i<400;i++){const k=fmt(d);if(dayDone(k))n++;else if(d.getDay()!==5)break;d.setDate(d.getDate()-1)}return n}
+function fmt(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function mode(){if(S.mode!=='auto')return S.mode;const t=today();if(t<'2026-12-11')return 'term8';if(t<='2026-12-17')return 'rest';if(t<'2027-01-28')return 'holiday';return 'term'}
+const WEEK=[
+ {k:'review',ic:'🏆',t:'周总结 Weekly review',d:'加 XP、抽查 5 个单词、选下周写作题',xp:10},
+ {k:'wordboss',ic:'🔤',t:'单词闯关 Word Boss',d:'单词本小测：5 个词',xp:10,go:'words'},
+ {k:'peel',ic:'✍️',t:'写一段 PEEL',d:'用四步法写一段（练习题）',xp:20,go:'write'},
+ {k:'maths',ic:'🔢',t:'数学拓展 Maths',d:'和展飞欧 20 分钟，一道难题写出推理',xp:20},
+ {k:'verb',ic:'🕵️',t:'动词侦探 Verb Game',d:'玩一轮关键词游戏',xp:10,go:'verb'},
+ {k:'rest',ic:'🎮',t:'休息日 Rest day',d:'今天不用做任务，打卡不会断',xp:0},
+ {k:'radar',ic:'📋',t:'作业雷达 Task Radar',d:'和妈妈看 SEQTA + Google Classroom，写下两周的作业和考试',xp:15}];
+function todayMissions(){const m=mode(),wd=new Date().getDay(),L=[];
+ if(m==='rest'){L.push({k:'pick',ic:'📚',t:'挑两本书 Pick 2 books',d:'休息周！去图书馆或书店，自己挑 2 本',xp:10,go:'books'});return L}
+ L.push({k:'read',ic:'📖',t:'阅读 Read '+(m==='holiday'?'20':'15')+' 分钟',d:'读完说 3 句：发生了什么 What → 为什么 Why → 我觉得 I think',xp:10});
+ L.push({k:'words3',ic:'🆕',t:'3 个新词 3 new words',d:'读书时遇到的词，点一下加进单词本',xp:5,go:'words'});
+ if(m==='holiday'){const h=[null,'wordboss','peel','maths','verb','rest','maths'][wd];if(h){const x=WEEK.find(w=>w.k===h);if(x)L.push(x)}}
+ else L.push(WEEK[wd]);
+ return L}
+const BADGES=[
+ ['first','🌱','第一天 First day',()=>Object.keys(S.days).some(dayDone)],
+ ['s3','🔥','连续 3 天 3-day streak',()=>streak()>=3],
+ ['s7','⭐','连续 7 天 7-day streak',()=>streak()>=7],
+ ['s30','🏅','连续 30 天 30-day streak',()=>streak()>=30],
+ ['w20','📒','单词 20 个 20 words',()=>S.words.length>=20],
+ ['w100','📚','单词 100 个 100 words',()=>S.words.length>=100],
+ ['verb','🕵️','动词侦探 Verb detective',()=>S.verbRight>=30],
+ ['order','🐢','慢下来 Slow-down pro',()=>S.orderWins>=3],
+ ['peel','🧱','PEEL 建筑师 PEEL builder',()=>S.peelWins>=3],
+ ['write','✍️','写满 5 段 5 paragraphs',()=>S.writes.length>=5],
+ ['book','📖','读完一本书 Finished a book',()=>Object.values(S.books).includes('done')],
+ ['lv5','🚀','等级 5 Level 5',()=>level()>=5]];
+function checkBadges(){BADGES.forEach(([id,ic,n,f])=>{if(!S.badges[id]&&f()){S.badges[id]=today();save();setTimeout(()=>toast('🎉 新徽章 New badge: '+ic+' '+n),900)}})}
+
+// ---------- tap-to-translate ----------
+function lookup(w){w=w.toLowerCase().replace(/^'+|'+$/g,'');if(GL[w])return[w,GL[w]];
+ const tries=[w.replace(/'s$/,''),w.replace(/ies$/,'y'),w.replace(/es$/,''),w.replace(/s$/,''),w.replace(/ed$/,''),w.replace(/d$/,''),w.replace(/ing$/,''),w.replace(/ing$/,'e'),w.replace(/ly$/,''),w.replace(/er$/,'')];
+ for(const t of tries)if(GL[t])return[t,GL[t]];const my=S.words.find(x=>x.w.toLowerCase()===w);if(my)return[my.w,my.zh];return[w,null]}
+function wrap(root){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p||p.closest('button,input,textarea,select,a,.nowrap,.w,nav,script,style'))return NodeFilter.FILTER_REJECT;return /[A-Za-z]{2,}/.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});
+ const ns=[];while(walker.nextNode())ns.push(walker.currentNode);
+ ns.forEach(n=>{const f=document.createDocumentFragment();n.nodeValue.split(/([A-Za-z][A-Za-z'\-]*[A-Za-z]|[A-Za-z])/).forEach((part,i)=>{if(i%2&&part.length>1){const s=document.createElement('span');s.className='w';s.textContent=part;f.appendChild(s)}else f.appendChild(document.createTextNode(part))});n.parentNode.replaceChild(f,n)})}
+document.addEventListener('click',e=>{const w=e.target.closest('.w');if(w){e.preventDefault();e.stopPropagation();showWord(w.textContent)}});
+function showWord(raw){const[w,zh]=lookup(raw);const sh=document.getElementById('sheet');const inBook=S.words.some(x=>x.w.toLowerCase()===w.toLowerCase());
+ sh.innerHTML=`<div class="row"><div class="big nowrap">${esc(w)}</div><button class="btn small sec" style="margin-left:auto" onclick="say('${esc(w)}')">🔊 读 Say</button></div>
+ <div class="zhbig">${zh?esc(zh):'词库里还没有这个词 · Not in the built-in list'}</div>
+ <div class="row" style="flex-wrap:wrap"><a class="btn small sec" target="_blank" rel="noopener" href="https://dict.youdao.com/result?word=${encodeURIComponent(w)}&lang=en">有道词典 Youdao</a>
+ <a class="btn small sec" target="_blank" rel="noopener" href="https://dictionary.cambridge.org/dictionary/english-chinese-simplified/${encodeURIComponent(w)}">剑桥词典 Cambridge</a></div>
+ ${inBook?'<p class="sub">✅ 已在单词本 Already in notebook</p>':`<button class="btn" onclick="addWord('${esc(w)}','${esc(zh||'')}')">➕ 加入单词本 Add to notebook</button>`}
+ <button class="btn sec" onclick="closeSheet()">关闭 Close</button>`;sh.classList.add('open')}
+function closeSheet(){document.getElementById('sheet').classList.remove('open')}
+function say(w){try{const u=new SpeechSynthesisUtterance(w);u.lang='en-AU';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function addWord(w,zh){if(!zh){zh=prompt('这个词的中文意思？（可先查词典）\nChinese meaning of "'+w+'"?')||'';}
+ if(S.words.some(x=>x.w.toLowerCase()===w.toLowerCase()))return;S.words.unshift({w,zh,d:today(),known:0});const r=dayRec(today());const before=S.words.filter(x=>x.d===today()).length;save();
+ addXP(2,'新词 new word');if(before>=3&&!r.words3){r.words3=true;save();addXP(5,'今日 3 词 ✓')}closeSheet();render()}
+
+// ---------- views ----------
+let tab='home',sub=null;
+const TABS=[['home','🏠','今天'],['play','🎮','游戏'],['words','📒','单词'],['plan','🗺️','计划'],['goal','🏆','目标']];
+function nav(){document.getElementById('nav').innerHTML=TABS.map(([k,ic,n])=>`<button class="${tab===k?'on':''}" onclick="go('${k}')"><b>${ic}</b>${n}</button>`).join('')}
+function go(t,s){tab=t;sub=s||null;render();window.scrollTo(0,0)}
+function topbar(){return `<div class="top"><span class="pill">🔥 ${streak()} 天</span><span class="pill">⭐ Lv${level()} · ${S.xp} XP</span><span class="pill">📒 ${S.words.length}</span></div>`}
+function render(){nav();const a=document.getElementById('app');let h=topbar();
+ h+=({home:vHome,play:vPlay,words:vWords,plan:vPlan,goal:vGoal}[tab])();a.innerHTML=h;wrap(a);
+ if(tab==='play'&&sub==='verb'&&!VG.cur)nextVerb()}
+function vHome(){const L=todayMissions(),r=S.days[today()]||{};const nA=countA();
+ const modeName={term8:'八年级最后几周 End of Year 8',rest:'休息周 Rest week 🏖️',holiday:'暑假 Summer holiday ☀️',term:'九年级 Year 9 📚'}[mode()];
+ let h=`<div class="card hero"><h1>🏆 六科 A 大冒险</h1><div class="sub">Jesse's Year 9 Quest · 妈妈说话算数 Mum keeps her word</div>
+ <div class="prize"><div><b>📱</b>iPhone</div><div><b>💻</b>MacBook</div><div><b>⌚</b>Watch</div><div><b>🎧</b>AirPods</div><div><b>📲</b>iPad</div></div>
+ <div style="text-align:center;font-weight:800">六门 A → 任选一个苹果设备<br><span class="sub">6 A's → pick any Apple device</span></div>
+ <div class="bar" style="margin-top:10px"><i style="width:${nA/6*100}%"></i></div><div class="sub" style="text-align:center">最新报告 Latest report：${nA} / 6 个 A</div></div>
+ <div class="card"><div class="sub">今日任务 TODAY · ${today()} · ${modeName}</div>`;
+ L.forEach(m=>{const d=!!r[m.k];h+=`<div class="mission ${d?'done':''}" onclick="tapMission('${m.k}',${m.xp},'${m.go||''}')"><span class="chk">${d?'✓':''}</span><span class="ic">${m.ic}</span><div><div class="tt">${m.t}</div><div class="sub">${m.d}</div></div><span class="xp">+${m.xp}</span></div>`});
+ h+=`<div class="days">${last7().map(x=>`<span class="${x.d?'d':''} ${x.t?'t':''}">${x.n}</span>`).join('')}</div></div>
+ <div class="card"><h2>🎖️ 徽章 Badges</h2><div class="grid">${BADGES.map(([id,ic,n])=>`<div class="badge ${S.badges[id]?'on':''}"><b>${ic}</b>${n}</div>`).join('')}</div></div>
+ <div class="card"><h2>💬 老师说 Teacher says</h2><p class="en">"Jesse's teachers see great potential in him."</p><p class="zh">老师们觉得 Jesse 很有潜力。</p><p>差的不是聪明，是<b>慢一点、想清楚再写</b>。<span class="en">Slow down. Plan. Go deeper.</span></p><button class="btn sec" onclick="go('plan','teacher')">看老师的全部反馈 →</button></div>`;
+ return h}
+function last7(){const o=[],d=new Date();d.setDate(d.getDate()-6);for(let i=0;i<7;i++){o.push({n:'日一二三四五六'[d.getDay()],d:dayDone(fmt(d)),t:i===6});d.setDate(d.getDate()+1)}return o}
+function tapMission(k,xp,g){const r=dayRec(today());if(g&&!r[k]&&k!=='read'&&k!=='review'&&k!=='maths'&&k!=='radar'&&k!=='rest'){if(g==='words'&&k==='wordboss'){go('words','quiz');return}if(g==='words'){go('words');return}if(g==='write'){go('play','write');return}if(g==='verb'){go('play','verb');return}if(g==='books'){r[k]=true;save();addXP(xp);go('plan','books');return}}
+ if(r[k]){r[k]=false;S.xp=Math.max(0,S.xp-xp);save();render();return}r[k]=true;save();if(xp)addXP(xp,'✓');else{toast('好好休息 Enjoy your rest 🎮');checkBadges()}render()}
+
+// ---------- games ----------
+function vPlay(){if(sub==='verb')return vVerb();if(sub==='order')return vOrder();if(sub==='peel')return vPeel();if(sub==='write')return vWrite();if(sub==='decoder')return vDecoder();
+ return `<div class="card"><h2>🎮 游戏 Games</h2><p class="sub">每个 3–5 分钟。练的是老师说的：看清题目 → 列提纲 → 写深。</p>
+ <div class="mission" onclick="go('play','verb')"><span class="ic">🕵️</span><div><div class="tt">动词侦探 Verb Detective</div><div class="sub">看到题目，选出它要你做什么</div></div><span class="xp">+2/题</span></div>
+ <div class="mission" onclick="go('play','decoder')"><span class="ic">🔑</span><div><div class="tt">关键词解码表 Verb Decoder</div><div class="sub">11 个 NESA 关键词，点开看怎么写</div></div></div>
+ <div class="mission" onclick="go('play','order')"><span class="ic">🐢</span><div><div class="tt">慢下来四步 Slow-Down 4 Steps</div><div class="sub">把四个步骤排好顺序</div></div><span class="xp">+10</span></div>
+ <div class="mission" onclick="go('play','peel')"><span class="ic">🧱</span><div><div class="tt">PEEL 搭积木 PEEL Builder</div><div class="sub">把打乱的句子拼成一段好段落</div></div><span class="xp">+15</span></div>
+ <div class="mission" onclick="go('play','write')"><span class="ic">✍️</span><div><div class="tt">今日写一段 Write 1 paragraph</div><div class="sub">好玩的练习题，四步法带着写</div></div><span class="xp">+20</span></div></div>`}
+const VERBS=[
+ ['identify','Recognise and name','指出、说出名称','一两个词或一句话就够。'],
+ ['outline','Sketch in general terms; indicate the main features of','概述要点','列 2–3 个主要特点，简短。'],
+ ['describe','Provide characteristics and features','描述（是什么样）','写「是什么、长什么样」，不用写为什么。'],
+ ['explain','Relate cause and effect; make the relationships between things evident; provide why and/or how','解释（怎么发生、为什么）','因果链：A → because → B → as a result → C。'],
+ ['analyse','Identify components and the relationship between them; draw out and relate implications','分析（拆开 + 找联系 + 说影响）','拆成几部分 → 怎么联系 → 为什么重要。'],
+ ['compare','Show how things are similar or different','比较（同和不同）','两边都写：Both… / However, X… while Y…'],
+ ['discuss','Identify issues and provide points for and/or against','讨论（正反两面）','支持 + 反对，最后一句小结。'],
+ ['assess','Make a judgement of value, quality, outcomes, results or size','评估（判断有多大、多好）','先给判断，再用证据说明。'],
+ ['evaluate','Make a judgement based on criteria; determine the value of','评价（按标准下结论）','标准 → 优点和不足 → 一定要有结论。'],
+ ['justify','Support an argument or conclusion','证明、给出理由','立场 + 2 个证据 + 为什么能支撑。'],
+ ['account for','State reasons for, report on','说明原因','一条一条列出原因。']];
+const VQ=[
+ ['Explain why bees are important to farming.','explain','解释：蜜蜂为什么对农业重要？'],
+ ['Describe the features of a desert.','describe','描述：沙漠有什么特点？'],
+ ['Compare cats and dogs as pets.','compare','比较：猫和狗当宠物'],
+ ['Discuss whether school should start at 10 am.','discuss','讨论：学校该不该 10 点上课？'],
+ ['Evaluate the success of your favourite team this season.','evaluate','评价：你喜欢的球队这个赛季成功吗？'],
+ ['Identify two renewable energy sources.','identify','指出两种可再生能源'],
+ ['Analyse how a video game keeps players hooked.','analyse','分析：游戏怎样让人停不下来？'],
+ ['Outline the main steps of making a sandwich.','outline','概述：做三明治的主要步骤'],
+ ['Justify your choice of the best superhero.','justify','证明：你选的最佳超级英雄'],
+ ['Assess the impact of smartphones on sleep.','assess','评估：手机对睡眠影响有多大？'],
+ ['Account for the popularity of short videos.','account for','说明：短视频为什么流行？'],
+ ['Explain how exercise improves mood.','explain','解释：运动怎样让心情变好？'],
+ ['Describe your ideal tiny house.','describe','描述：你理想的小房子'],
+ ['Analyse why a movie hero is popular.','analyse','分析：电影英雄为什么受欢迎？'],
+ ['Compare summer in Sydney and in China.','compare','比较：悉尼和中国的夏天'],
+ ['Discuss the pros and cons of homework.','discuss','讨论：作业的好处和坏处'],
+ ['Explain why some foods go bad quickly.','explain','解释：有些食物为什么坏得快？'],
+ ['Evaluate a phone app you use every day.','evaluate','评价：你每天用的一个 App'],
+ ['Justify why reading every day is useful.','justify','证明：每天阅读为什么有用'],
+ ['Identify the main character in your book.','identify','指出：你书里的主角']];
+const VG={cur:null,round:0,right:0,ans:null};
+function nextVerb(){const q=VQ[Math.floor(Math.random()*VQ.length)];const others=VERBS.filter(v=>v[0]!==q[1]).sort(()=>Math.random()-.5).slice(0,3);VG.cur={q,opts:[VERBS.find(v=>v[0]===q[1]),...others].sort(()=>Math.random()-.5)};VG.ans=null}
+function vVerb(){if(!VG.cur)nextVerb();const {q,opts}=VG.cur;
+ let h=`<div class="card"><div class="row"><button class="btn small sec" onclick="VG.cur=null;VG.round=0;VG.right=0;go('play')">← 返回</button><span class="sub" style="margin-left:auto">第 ${VG.round+1}/10 题 · 答对 ${VG.right}</span></div>
+ <h2>🕵️ 这道题要你做什么？</h2><div class="sub">What does the question ask you to do?</div><div class="q en">${q[0]}</div><div class="zh">${q[2]}</div>`;
+ opts.forEach((o,i)=>{let c='';if(VG.ans!==null){if(o[0]===q[1])c='ok';else if(i===VG.ans)c='bad'}h+=`<button class="opt ${c}" onclick="ansVerb(${i})"><b>${o[2]}</b></button>`});
+ if(VG.ans!==null){const v=VERBS.find(v=>v[0]===q[1]);h+=`<div class="card" style="margin:8px 0"><b class="en" style="color:var(--y)">${v[0]}</b> = ${v[2]}<br><span class="sub">怎么写 How：${v[3]}</span></div><button class="btn" onclick="verbNext()">${VG.round>=9?'看结果 Finish':'下一题 Next →'}</button>`}
+ return h+'</div>'}
+function ansVerb(i){if(VG.ans!==null)return;VG.ans=i;S.verbPlays++;if(VG.cur.opts[i][0]===VG.cur.q[1]){VG.right++;S.verbRight++;addXP(2,'答对 correct')}else save();render()}
+function verbNext(){VG.round++;if(VG.round>=10){const r=VG.right;VG.round=0;VG.right=0;VG.cur=null;const d=dayRec(today());if(!d.verb){d.verb=true;save();addXP(10,'今日动词任务 ✓')}toast('本轮答对 '+r+'/10 · Round score '+r+'/10');go('play');return}nextVerb();render()}
+function vDecoder(){return `<div class="card"><button class="btn small sec" onclick="go('play')">← 返回</button><h2>🔑 关键词解码表 Verb Decoder</h2><p class="sub">来自 NESA《关键词词汇表 Glossary of key words》。先看动词，就知道要写什么。<br>一分钟判断：describe 是什么 → explain 为什么 → analyse 怎么联系、为什么重要 → evaluate/assess 下结论。越往后越要写深。</p>
+ ${VERBS.map(v=>`<details><summary><span class="en">${v[0]}</span> · ${v[2]}</summary><p class="en" style="margin:6px 0">${v[1]}</p><p class="sub">✏️ ${v[3]}</p></details>`).join('')}</div>`}
+const STEPS=[['① 拆题 Decode','圈动词、划话题、看分值'],['② 提纲 Plan','3 行：观点 + 证据'],['③ 写 PEEL Write','每个观点一段'],['④ 检查 Check','做到动词要求了吗？']];
+const OG={picked:[],order:null};
+function vOrder(){if(!OG.order)OG.order=[0,1,2,3].sort(()=>Math.random()-.5);const done=OG.picked.length===4;
+ let h=`<div class="card"><button class="btn small sec" onclick="OG.order=null;OG.picked=[];go('play')">← 返回</button><h2>🐢 慢下来四步 Slow-Down 4 Steps</h2><p class="sub">按顺序点：写答案前先做哪一步？ Tap in the right order.</p><div class="stepbox">`;
+ OG.order.forEach(i=>{h+=`<button class="${OG.picked.includes(i)?'used':''}" onclick="pickStep(${i})">${STEPS[i][0]}</button>`});
+ h+=`</div><div style="margin-top:12px">${OG.picked.map(i=>`<div class="mission done"><span class="chk">✓</span><div><div class="tt">${STEPS[i][0]}</div><div class="sub">${STEPS[i][1]}</div></div></div>`).join('')}</div>`;
+ if(done)h+=`<p>🎉 对了！前两步只要 3–5 分钟，答案却能深很多。<br><span class="en">Two minutes of planning beats rushing.</span></p><button class="btn" onclick="OG.order=null;OG.picked=[];go('play','peel')">下一关：PEEL 搭积木 →</button>`;
+ h+=`<details><summary>PEEL 是什么？ What is PEEL?</summary><p><b>P</b> = Point 观点句<br><b>E</b> = Evidence 证据 / 例子<br><b>E</b> = Explain 解释：证据怎么证明观点（because…）<br><b>L</b> = Link 回扣题目</p><p class="sub">TEEL 一样：T = Topic sentence 主题句。</p></details>`;
+ return h+'</div>'}
+function pickStep(i){if(OG.picked.includes(i))return;if(i!==OG.picked.length){toast('再想想 Try again 🤔');return}OG.picked.push(i);if(OG.picked.length===4){S.orderWins++;addXP(10,'四步法 ✓')}render()}
+const PEELS=[
+ {q:'Explain why many teenagers find it hard to stop scrolling short videos.',qz:'解释：为什么很多青少年刷短视频很难停下来？',
+  s:[['P','One key reason teenagers struggle to stop scrolling is that short-video apps are designed to never give a natural stopping point.','一个关键原因：短视频 App 的设计让人找不到自然的停止点。'],
+     ['E','For example, the next video plays automatically, and each clip is often less than a minute long.','比如，下一个视频自动播放，每段常常不到一分钟。'],
+     ['E','Because there is no break between videos, the brain does not get a moment to decide to stop. As a result, "just one more" quickly turns into an hour.','因为视频之间没有间隔，大脑没机会决定停下。结果「再看一个」变成一小时。'],
+     ['L','Therefore, the design of the app itself is a major reason scrolling is so hard to stop.','因此，App 本身的设计是很难停下来的主要原因。']]},
+ {q:'Explain why bees are important to farming.',qz:'解释：蜜蜂为什么对农业重要？',
+  s:[['P','Bees are important to farming because they pollinate many food crops.','蜜蜂对农业重要，因为它们给很多粮食作物授粉。'],
+     ['E','For example, apples, almonds and strawberries need pollen to be carried from flower to flower.','比如，苹果、杏仁和草莓需要花粉在花之间传递。'],
+     ['E','When bees move pollen, the flowers can turn into fruit. As a result, farmers get bigger harvests.','蜜蜂传粉后，花才能结果。结果，农民收成更大。'],
+     ['L','This shows that without bees, many farms would produce much less food.','这说明没有蜜蜂，很多农场的产量会少很多。']]}];
+const PG={i:0,order:null,picked:[]};
+function vPeel(){const p=PEELS[PG.i];if(!PG.order)PG.order=[0,1,2,3].sort(()=>Math.random()-.5);const lab=['P 观点','E 证据','E 解释','L 回扣'];
+ let h=`<div class="card"><button class="btn small sec" onclick="PG.order=null;PG.picked=[];go('play')">← 返回</button><h2>🧱 PEEL 搭积木</h2><div class="q en">${p.q}</div><div class="zh">${p.qz}</div>
+ <p class="sub">下一块要放：<b style="color:var(--y)">${PG.picked.length<4?lab[PG.picked.length]:'完成 ✓'}</b> · 点句子 Tap the sentence</p>`;
+ PG.order.filter(i=>!PG.picked.includes(i)).forEach(i=>{h+=`<button class="opt" onclick="pickPeel(${i})"><span class="en">${p.s[i][1]}</span></button>`});
+ PG.picked.forEach((i,n)=>{h+=`<div class="mission done"><span class="tag">${lab[n]}</span><div><div class="en">${p.s[i][1]}</div><div class="sub">${p.s[i][2]}</div></div></div>`});
+ if(PG.picked.length===4)h+=`<p>🎉 段落搭好了！注意第三块（解释）最长——这就是「写深」。</p><button class="btn" onclick="PG.i=(PG.i+1)%PEELS.length;PG.order=null;PG.picked=[];render()">再来一段 Another →</button><button class="btn sec" onclick="PG.order=null;PG.picked=[];go('play','write')">自己写一段 Write my own →</button>`;
+ return h+'</div>'}
+function pickPeel(i){if(i!==PG.picked.length){toast('不是这块，再想想 🤔');return}PG.picked.push(i);if(PG.picked.length===4){S.peelWins++;addXP(15,'PEEL ✓')}render()}
+const PROMPTS=[['Explain why some video games are so hard to stop playing.','解释：为什么有些游戏很难停下来？','explain'],['Explain how a smartphone changes the way teenagers make friends.','解释：手机怎样改变青少年交朋友？','explain'],['Analyse why your favourite movie hero is popular.','分析：你最喜欢的电影英雄为什么受欢迎？','analyse'],['Should schools start at 10 am? Discuss.','讨论：学校应该 10 点上课吗？','discuss'],['Explain why breakfast matters for students.','解释：早餐为什么对学生重要？','explain'],['Compare reading a book and watching its movie.','比较：读原著和看电影','compare'],['Evaluate the best Apple device for a Year 9 student.','评价：哪个苹果设备最适合九年级学生？','evaluate']];
+const WG={p:null,verb:null,plan:['','',''],text:'',chk:{}};
+function vWrite(){if(WG.p===null)WG.p=Math.floor(Math.random()*PROMPTS.length);const p=PROMPTS[WG.p];
+ let h=`<div class="card"><button class="btn small sec" onclick="go('play')">← 返回</button><h2>✍️ 今日写一段</h2><p class="sub">练习题，不是学校作业 · Practice only, not schoolwork</p>
+ <div class="q en">${p[0]}</div><div class="zh">${p[1]}</div><button class="btn small sec" onclick="WG.p=(WG.p+1)%PROMPTS.length;WG.verb=null;render()">🔄 换一题 New topic</button>
+ <h3>① 拆题 Decode：动词是？</h3><div class="stepbox">${['describe','explain','analyse','compare','discuss','evaluate'].map(v=>`<button class="${WG.verb===v?(v===p[2]?'used':''):''}" style="${WG.verb===v?(v===p[2]?'border-color:var(--g);opacity:1':'border-color:var(--r)'):''}" onclick="WG.verb='${v}';render()">${v}</button>`).join('')}</div>`;
+ if(WG.verb&&WG.verb!==p[2])h+=`<p class="sub">🤔 再看看题目里的动词。</p>`;
+ if(WG.verb===p[2]){const v=VERBS.find(x=>x[0]===p[2]);h+=`<p class="sub">✅ ${v[2]} · ${v[3]}</p>
+ <h3>② 提纲 Plan：3 个关键词观点</h3>${[0,1,2].map(i=>`<input style="margin:4px 0" placeholder="观点 ${i+1} Point ${i+1}" value="${esc(WG.plan[i])}" oninput="WG.plan[${i}]=this.value">`).join('')}
+ <h3>③ 写 PEEL Write</h3><p class="sub">句型 Frames：One key reason … is that … / For example, … / This happens because … As a result, … / Therefore, …</p>
+ <textarea id="wt" placeholder="用英文写一段（5–7 句）Write in English" oninput="WG.text=this.value">${esc(WG.text)}</textarea>
+ <h3>④ 检查 Check</h3>${[['p','有观点句 Point sentence'],['e','有例子或证据 Evidence'],['b','用了 because / as a result / therefore'],['l','最后一句回扣题目 Link']].map(([k,t])=>`<div class="mission ${WG.chk[k]?'done':''}" onclick="WG.chk.${k}=!WG.chk.${k};render()"><span class="chk">${WG.chk[k]?'✓':''}</span><div>${t}</div></div>`).join('')}
+ <button class="btn" onclick="finishWrite()">完成，给妈妈 / 展飞欧看 Done ✓</button>`}
+ if(S.writes.length)h+=`<details><summary>我写过的 My paragraphs (${S.writes.length})</summary>${S.writes.slice(0,10).map(w=>`<p class="sub">${w.d} · ${esc(w.q)}</p><p class="en">${esc(w.t)}</p>`).join('')}</details>`;
+ return h+'</div>'}
+function finishWrite(){const t=(document.getElementById('wt')||{}).value||WG.text;if(t.trim().split(/\s+/).length<25){toast('再多写几句（至少 25 个词）Write a bit more');return}
+ if(Object.values(WG.chk).filter(Boolean).length<4){toast('先把 4 项检查勾完 Finish the checklist');return}
+ S.writes.unshift({d:today(),q:PROMPTS[WG.p][0],t});const r=dayRec(today());r.peel=true;save();addXP(20,'写完一段 ✓');WG.p=null;WG.verb=null;WG.plan=['','',''];WG.text='';WG.chk={};go('play','write')}
+
+// ---------- words ----------
+let WQ=null,wfilter='';
+function vWords(){if(sub==='quiz')return vQuiz();
+ const f=wfilter.toLowerCase();const mine=S.words.filter(x=>!f||x.w.toLowerCase().includes(f)||(x.zh||'').includes(f));
+ const gl=f?Object.keys(GL).filter(k=>k.includes(f)||GL[k].includes(f)).slice(0,30):[];
+ return `<div class="card"><h2>📒 我的单词本 My Vocab Notebook</h2><p class="sub">网站上任何英文词都可以点一下看中文 · Tap any English word on this site.</p>
+ <input id="ws" placeholder="🔍 搜索 / 查新词 Search or look up a word" value="${esc(wfilter)}" oninput="wfilter=this.value;clearTimeout(window._ws);window._ws=setTimeout(()=>{render();const e=document.getElementById('ws');e.focus();e.setSelectionRange(e.value.length,e.value.length)},350)">
+ ${f&&/^[a-z' -]+$/i.test(f)?`<button class="btn small sec" onclick="showWord('${esc(f.trim())}')">🔎 查「${esc(f)}」Look up</button>`:''}
+ <div class="row" style="margin-top:6px"><button class="btn" onclick="go('words','quiz')" ${S.words.length<5?'disabled style="opacity:.5"':''}>⚔️ 单词闯关 Word Boss（5 题）</button></div>
+ <p class="sub">${S.words.length<5?'先收集 5 个词才能闯关 · Collect 5 words first':''}</p>
+ <h3>我收集的 Mine (${S.words.length})</h3>${mine.length?mine.map(x=>`<div class="wordrow"><div><b class="nowrap">${esc(x.w)}</b> ${x.known>=3?'⭐':''}<div class="sub">${esc(x.zh||'（还没写中文）')} · ${x.d}</div></div><div class="row"><button class="btn small sec" onclick="say('${esc(x.w)}')">🔊</button><button class="btn small sec" onclick="delWord('${esc(x.w)}')">🗑️</button></div></div>`).join(''):'<p class="sub">还没有。读书时遇到不会的词，在这里搜，或在网站上点一下 ➕。</p>'}
+ ${gl.length?`<h3>内置词库 Built-in (${gl.length})</h3>${gl.map(k=>`<div class="wordrow" onclick="showWord('${esc(k)}')"><div><b class="nowrap">${esc(k)}</b><div class="sub">${esc(GL[k])}</div></div><span>➕</span></div>`).join('')}`:''}
+ <h3>写作好用的词 Writing power words</h3><p>${['significant','consequently','however','therefore','reveals','suggests','highlights','because','evidence','connection'].map(w=>`<span class="tag" onclick="showWord('${w}')">${w}</span>`).join('')}</p></div>`}
+function delWord(w){if(!confirm('删除 Delete "'+w+'"?'))return;S.words=S.words.filter(x=>x.w!==w);save();render()}
+function vQuiz(){if(!WQ){const pool=S.words.filter(x=>x.zh).sort(()=>Math.random()-.5).slice(0,5);WQ={pool,i:0,right:0,ans:null}}
+ if(WQ.pool.length<3)return `<div class="card"><p>先给单词写上中文（至少 3 个）。</p><button class="btn" onclick="WQ=null;go('words')">← 返回</button></div>`;
+ if(WQ.i>=WQ.pool.length){const r=WQ.right,n=WQ.pool.length;return `<div class="card"><h2>⚔️ 结果 Result：${r}/${n}</h2><p>${r>=n-1?'🎉 过关！Boss defeated!':'💪 差一点，明天再战！'}</p><button class="btn" onclick="WQ=null;go('words')">返回单词本</button></div>`}
+ const x=WQ.pool[WQ.i];if(!WQ.opts){const others=S.words.filter(y=>y.zh&&y.w!==x.w).sort(()=>Math.random()-.5).slice(0,3).map(y=>y.zh);const extra=Object.values(GL).sort(()=>Math.random()-.5).slice(0,3);WQ.opts=[x.zh,...others,...extra].filter((v,i,a)=>a.indexOf(v)===i).slice(0,4).sort(()=>Math.random()-.5)}
+ return `<div class="card"><button class="btn small sec" onclick="WQ=null;go('words')">← 返回</button><span class="sub"> 第 ${WQ.i+1}/${WQ.pool.length} 题</span>
+ <div class="q nowrap" style="font-size:28px;color:var(--b)">${esc(x.w)} <button class="btn small sec" onclick="say('${esc(x.w)}')">🔊</button></div>
+ ${WQ.opts.map((o,i)=>`<button class="opt ${WQ.ans!==null?(o===x.zh?'ok':(i===WQ.ans?'bad':'')):''}" onclick="ansQ(${i})">${esc(o)}</button>`).join('')}
+ ${WQ.ans!==null?`<button class="btn" onclick="WQ.i++;WQ.ans=null;WQ.opts=null;render()">下一题 Next →</button>`:''}</div>`}
+function ansQ(i){if(WQ.ans!==null)return;WQ.ans=i;const x=WQ.pool[WQ.i];if(WQ.opts[i]===x.zh){WQ.right++;x.known=(x.known||0)+1;addXP(2,'✓')}else{x.known=0;save()}
+ if(WQ.i===WQ.pool.length-1){const r=dayRec(today());if(!r.wordboss&&WQ.right>=WQ.pool.length-1){r.wordboss=true;save();addXP(10,'Word Boss ✓')}}render()}
+
+// ---------- plan ----------
+const BOOKS=[['holes','Holes','Louis Sachar','《别有洞天》','⭐ 易','节奏快、有悬念，练「找原因 why」'],['overboard','Boy Overboard','Morris Gleitzman','《男孩落水》','⭐ 易','澳洲作家，短句多，讲难民家庭'],['wind','The Boy Who Harnessed the Wind (Young Readers Edition)','William Kamkwamba','《驭风少年》青少年版','⭐⭐ 中','真人真事：少年自己造风车，喜欢动手的你会喜欢'],['refugee','Refugee','Alan Gratz','《难民》','⭐⭐ 中','三个少年故事交替，像追剧；连到历史和地理'],['once','Once','Morris Gleitzman','《曾经》','⭐⭐ 中','二战时一个犹太男孩的故事，篇幅短'],['animal','Animal Farm','George Orwell','《动物农场》','⭐⭐⭐ 稍难','很薄但很「深」，最适合练 analyse'],['tomorrow','Tomorrow, When the War Began','John Marsden','《明天，战争爆发时》','⭐⭐⭐ 稍难','澳洲经典，紧张刺激，有系列'],['martian','The Martian (Classroom Edition)','Andy Weir','《火星救援》课堂版','⭐⭐⭐ 稍难','靠科学求生；课堂版删了粗口'],['maus','Maus','Art Spiegelman','《鼠族》图像小说','⭐⭐⭐ 稍难','大屠杀幸存者的故事，沉重但深刻，适合和妈妈一起读']];
+function vPlan(){const open=k=>sub===k?'open':'';
+ return `<div class="card"><h2>🗺️ 计划 The Plan</h2><p class="sub">点开每一块。PDF 打印版 <a href="Jesse_Year9_plan.pdf" target="_blank">Jesse_Year9_plan.pdf</a>（最后一页可贴墙）</p>
+ <details ${open('teacher')}><summary>💬 老师说了什么 Teacher feedback</summary>
+ <p class="sub">Ms Jessie Kirkpatrick（八年级年级主任 Year 8 Patron）· 2026 年 11 月 25 日</p>
+ <p class="en">They have been very pleased with the positive energy he brings to class.</p><p class="zh">👍 老师们很喜欢他在课上的积极状态，他特别喜欢需要深入思考的任务。</p>
+ <p class="en">Regular reading would help Jesse broaden his English vocabulary and strengthen his writing.</p><p class="zh">📖 经常读书能扩大词汇量、提高写作。</p>
+ <p class="en">He sometimes rushes his written responses.</p><p class="zh">⚠️ 他写答案有时太赶，观点没有展开。</p>
+ <p class="en">Slow down, identify what the question is asking him to do and plan his response.</p><p class="zh">🎯 九年级重点：放慢，看清题目要求，列好提纲再写。</p>
+ <p class="en">Explain = show how or why. Analyse = explore how the ideas are connected and why those connections matter.</p><p class="zh">explain 写「怎么、为什么」；analyse 写「怎么联系、为什么重要」。</p></details>
+ <details ${open('a')}><summary>🅰️ A 是什么水平？ What is an A?</summary><p class="en">"Extensive knowledge and understanding … can readily apply this knowledge … can apply these skills to new situations."</p><p class="zh">NESA 通用等级标准 Common Grade Scale：知道得多 + 会用 + 新题也能写清楚。最后一点就是老师说的「审题、列提纲、写深」。</p></details>
+ <details ${open('holiday')}><summary>☀️ 暑假计划 Holiday plan（12 月–1 月）</summary>
+ <table><tr><td>12/11–12/17</td><td>🏖️ 休息周。只做一件事：自己挑 2 本书。</td></tr><tr><td>12/18–1 月中</td><td>📖 每天读 20 分钟 · 🆕 每天 3 个新词 · ✍️ 每周 1 段 · 🔢 每周 2 次数学（展飞欧）</td></tr><tr><td>1 月中–开学</td><td>加上每周 1 次动词侦探；开学前整理书包和电脑，关掉游戏通知。</td></tr></table>
+ <p class="sub">一周 4–5 天，每天最多 40 分钟。读完一章说 3 句：What → Why → I think。</p></details>
+ <details ${open('books')}><summary>📚 书单 Book list（点按钮记录）</summary>${BOOKS.map(b=>{const st=S.books[b[0]];return `<div class="wordrow"><div><b class="en">${b[1]}</b><div class="sub">${b[2]} · ${b[3]} · ${b[4]}</div><div class="sub">${b[5]}</div></div><div><button class="btn small ${st==='reading'?'':'sec'}" onclick="setBook('${b[0]}','reading')">${st==='reading'?'📖 在读':'在读'}</button><button class="btn small ${st==='done'?'':'sec'}" onclick="setBook('${b[0]}','done')">${st==='done'?'✅ 读完':'读完'}</button></div></div>`}).join('')}
+ <p class="sub">短的「零食」阅读：<b class="en">ABC Behind the News (BTN)</b> 少年新闻、<b class="en">ABC News</b> 每天一篇。读不下去可以换书；有声书 audiobook 配原书也算。</p></details>
+ <details ${open('week')}><summary>📅 九年级每周安排 Weekly routine（Term 1 2027）</summary><table>${[1,2,3,4,5,6,0].map(d=>`<tr><td>${'日一二三四五六'[d]}</td><td>${d===5?'🎮 休息':'📖 读 15 分钟 + '}${d===5?'':WEEK[d].ic+' '+WEEK[d].t}</td><td class="sub">${WEEK[d].xp?'+'+(WEEK[d].xp+10):''}</td></tr>`).join('')}</table>
+ <p class="sub">一周 ≥ 60 XP 算过关。考试多的周：保留阅读，小任务换成为作业做「拆题 + 提纲」——作业本身必须自己写。<br>收到作业通知当天拍照、圈动词和评分标准 marking criteria；截止前一周写完初稿 draft。</p></details>
+ <details ${open('subjects')}><summary>🎯 各科重点 Subject focus</summary>${SUBJ_FOCUS.map(s=>`<h3>${s[0]}</h3><p class="sub">现在 Now：${s[1]}</p><p>${s[2]}</p>`).join('')}</details>
+ <details ${open('parents')}><summary>👨‍👩‍👦 家长怎么跟进 For Mum & 展飞欧</summary><p>每月第一个周日 20 分钟：① 一起看 SEQTA 新成绩，让他自己讲哪里丢分 ② 看 Google Classroom 有没有未交 Missing ③ 看这个网站的 XP 和打卡 ④ 下个月只改进一件事。</p><p class="sub">多夸努力和方法（「你先列了提纲，所以写得更深」）。辅导可以讲思路、出练习题，但要交的作业一定是他自己写。</p></details></div>`}
+const SUBJ_FOCUS=[
+ ['🔢 数学 Maths','一年都是 A；第四学期考试 95/100。弱点：互斥事件 mutually exclusive events。','暑假先补互斥事件（10 题，讲清「为什么不能同时发生」）；每周一道难题写出推理 working；问清九年级数学路径 Path。'],
+ ['📘 英语 English','C → B → B；莎士比亚 80%，人类经验 Human Experiences 68.67%。','每天阅读是核心；分析段落用 TEEL：观点 + 引文 quote + 手法 technique + 效果 effect；作业发回问老师：What is my next step to reach an A?'],
+ ['🏛️ 历史 History','阶段报告二 C → 年终考试 84%（史料 12/15、简答 18/20、论文 12/15）。','保持考前方法；史料题问 Who / When / Why / Reliable?；论文每段 PEEL + 一个具体史实。'],
+ ['🔬 科学 Science','B / B / B；Rube Goldberg 100%，变化测验 Change Test 65.22%。','长答题用 KERV（关键术语 Key terms、例子 Example、回应材料 Refer、扣动词 Verb）；实验报告写假设 hypothesis、变量 variables、局限 limitations。'],
+ ['🌏 地理 Geography','报告 A / B；评估 84.6%、74.5%、77.8%。','图表题先 describe 趋势再 explain 原因；实地考察 fieldwork 拍照 + 记数据；用 BTN 新闻找真实例子。'],
+ ['💪 体育健康 PDHPE','B / B / B；网络安全 Cyber 86.8%，项目学习 PBL 82%。','书面题用官方术语 + 一个例子；实践课全力参与；健康话题用 PEEL，explain 写出「为什么」。'],
+ ['🎨 选修 Visual Arts','八年级报告 B。','作品集 portfolio / 创作日志 process diary 按时记；作品说明写「我为什么这样做 why」。'],['🍳 选修 Food in Focus','八年级食品单元 Food for Life 90%。','实践课注意卫生安全 food safety；实验报告写清结果和原因。'],['💼 其他必修 Others','商业与创业 Commerce、国际研究 International Studies。','同样用「拆题 + PEEL」。展飞欧做会计，商业课的金融部分可以帮忙。']];
+function setBook(id,st){const was=S.books[id];if(was===st){delete S.books[id];save();render();return}S.books[id]=st;save();if(st==='done'&&was!=='done')addXP(50,'读完一本书 📖');else addXP(st==='reading'?5:0,'');render()}
+
+// ---------- goal ----------
+const REPORTS=[['i1','阶段一 Interim 1'],['s1','学期一 Semester 1'],['i2','阶段二 Interim 2'],['ye','年终 Year-end']];
+function latestReport(){for(let i=REPORTS.length-1;i>=0;i--){const k=REPORTS[i][0];if(S.subjects.some(s=>(S.grades[s]||{})[k]))return k}return null}
+function countA(){const k=latestReport();if(!k)return 0;return S.subjects.filter(s=>(S.grades[s]||{})[k]==='A').length}
+const MILES=[['t1','第一学期 Term 1','习惯养成：阅读 ≥ 60 天、单词 ≥ 150 个、每份作业都用四步法、没有未交作业'],['t2','第二学期 Term 2','看阶段报告哪几科是 A；约家长会 parent-teacher interview 问「怎么到 A」'],['t3','第三学期 Term 3','弱的两科每周多写一段 PEEL；写作用上高级词'],['t4','第四学期 Term 4','考前三周开始复习；年终报告出成绩 🎉']];
+function vGoal(){const readDays=Object.keys(S.days).filter(d=>S.days[d].read).length;
+ const eff=[['🔥 阅读 30 天 Read 30 days',readDays,30,'一次你选的家庭活动'],['📒 单词 100 个 100 words',S.words.length,100,'一本你想要的书'],['✍️ 写 10 段 10 paragraphs',S.writes.length,10,'周末多一点游戏时间']];
+ return `<div class="card hero"><h2>🏆 六科 A 进度 Road to 6 A's</h2><div style="font-size:40px;font-weight:900;text-align:center">${countA()} / 6</div><div class="sub" style="text-align:center">按最新一份报告算 · from the latest report entered</div></div>
+ <div class="card"><h2>📊 我的六门科 My six subjects</h2><p class="sub">报告出来后，和妈妈一起点等级。名字可以改。<br>Tap your grade when each report comes out.</p>
+ ${S.subjects.map((s,i)=>`<div style="margin:10px 0"><input class="nowrap" style="padding:6px 10px;font-weight:700" value="${esc(s)}" onchange="renameSubj(${i},this.value)">
+ ${REPORTS.map(([k,n])=>`<div class="row" style="margin-top:4px"><span class="sub" style="width:120px;flex:none">${n}</span><div class="gsel" style="flex:1">${['A','B','C'].map(g=>`<button class="${g} ${(S.grades[s]||{})[k]===g?'on':''}" onclick="setGrade('${esc(s)}','${k}','${g}')">${g}</button>`).join('')}</div></div>`).join('')}</div>`).join('')}
+ <p class="sub">📌 依据 Evidence：2026 年 7 月 28 日选课回执——选修 Electives 是<b>视觉艺术 Visual Arts</b> 和<b>食品专题 Food in Focus</b>（后备 iSTEM、SSER；没有中文）。学校 2027 手册的必修 Compulsory：英语、数学、科学、历史、地理、体育健康 PDHPE、商业与创业 Commerce、国际研究 International Studies。这里先放六门核心课；要换成别的科（比如 Visual Arts、Commerce），直接改名字就行。</p></div>
+ <div class="card"><h2>🎁 一路上的小奖励 Rewards on the way</h2>${eff.map(([n,v,m,r])=>`<div style="margin:10px 0"><div class="row"><b>${n}</b><span class="sub" style="margin-left:auto">${Math.min(v,m)}/${m}</span></div><div class="bar"><i style="width:${Math.min(100,v/m*100)}%"></i></div><div class="sub">🎁 ${r}</div></div>`).join('')}
+ <p class="sub">大奖：六门 A → 任选一个苹果设备。规则建议提前说好：算哪六门、看哪份报告（建议九年级年终报告），写下来两个人签名。</p></div>
+ <div class="card"><h2>🗓️ 2027 里程碑 Milestones</h2>${MILES.map(([k,n,d])=>`<div class="mission ${S.miles[k]?'done':''}" onclick="S.miles['${k}']=!S.miles['${k}'];save();if(S.miles['${k}'])addXP(30,'里程碑 ✓');render()"><span class="chk">${S.miles[k]?'✓':''}</span><div><div class="tt">${n}</div><div class="sub">${d}</div></div><span class="xp">+30</span></div>`).join('')}</div>
+ <div class="card"><h2>⚙️ 设置 Settings</h2><p class="sub">进度只存在这台手机的浏览器里 · Progress is saved on this phone only.</p>
+ <select onchange="S.mode=this.value;save();render()">${[['auto','自动 Auto（按日期）'],['rest','休息周 Rest week'],['holiday','暑假 Holiday'],['term','开学 Term']].map(([v,n])=>`<option value="${v}" ${S.mode===v?'selected':''}>${n}</option>`).join('')}</select>
+ <button class="btn sec" onclick="backup()">📋 复制备份码 Copy backup code</button><button class="btn sec" onclick="restore()">📥 用备份码恢复 Restore</button></div>`}
+function renameSubj(i,v){const old=S.subjects[i];v=v.trim();if(!v)return;S.subjects[i]=v;if(S.grades[old]){S.grades[v]=S.grades[old];delete S.grades[old]}save();render()}
+function setGrade(s,k,g){S.grades[s]=S.grades[s]||{};if(S.grades[s][k]===g)delete S.grades[s][k];else S.grades[s][k]=g;save();render();if(countA()===6)toast('🍎🎉 六门 A！去挑苹果设备！')}
+function backup(){const c=btoa(unescape(encodeURIComponent(JSON.stringify(S))));navigator.clipboard?navigator.clipboard.writeText(c).then(()=>toast('已复制 Copied ✓'),()=>prompt('复制这段 Copy:',c)):prompt('复制这段 Copy:',c)}
+function restore(){const c=prompt('粘贴备份码 Paste backup code');if(!c)return;try{S=Object.assign({},def,JSON.parse(decodeURIComponent(escape(atob(c.trim())))));save();toast('已恢复 Restored ✓');render()}catch(e){toast('备份码不对 Invalid code')}}
+render();checkBadges();
+</script>
+</body>
+</html>
