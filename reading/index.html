@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1226">
+<meta name="robots" content="noindex, nofollow">
+<title>阅读闯关 Reading Quest · Jesse</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%96%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#0f1226;--card:#1a1e3d;--card2:#20254a;--line:#3a4080;--y:#ffcc33;--b:#3ec5ff;--g:#2ee59d;--o:#ff9d3d;--p:#ff7ab6;--r:#ff5c7a;--v:#7c5cff;--t:#eef0ff;--m:#a9afd9}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Noto Sans SC",Roboto,sans-serif;font-size:16px;line-height:1.5}
+body{padding:env(safe-area-inset-top) 0 calc(72px + env(safe-area-inset-bottom))}
+#app{max-width:520px;margin:0 auto;padding:12px 14px}
+.top{display:flex;gap:8px;align-items:center;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5;flex-wrap:wrap}
+.pill{background:var(--card2);border-radius:999px;padding:6px 12px;font-weight:700;font-size:15px;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0}
+.hero{background:linear-gradient(135deg,#ff7ab6,#7c5cff 55%,#3ec5ff);border:none}
+.hero h1{margin:0;font-size:22px}
+h2{font-size:19px;margin:4px 0 8px}
+h3{font-size:16px;margin:12px 0 6px;color:var(--y)}
+.sub{color:var(--m);font-size:13px}
+.hero .sub{color:#fff;opacity:.9}
+.btn{display:block;width:100%;border:none;border-radius:16px;padding:13px;font-size:17px;font-weight:800;background:var(--y);color:#1b1b1b;box-shadow:0 5px 0 #b38a00;margin:10px 0;cursor:pointer;text-align:center;text-decoration:none}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #b38a00}
+.btn.sec{background:var(--card2);color:var(--t);box-shadow:0 4px 0 #0a0c1c}
+.btn.sec:active{box-shadow:0 2px 0 #0a0c1c}
+.btn.go{background:var(--g);color:#06331f;box-shadow:0 5px 0 #1a8a5c}
+.btn.go:active{box-shadow:0 2px 0 #1a8a5c}
+.btn.warn{background:var(--o);color:#331a06;box-shadow:0 5px 0 #b36a1a}
+.btn.warn:active{box-shadow:0 2px 0 #b36a1a}
+.btn.small{display:inline-block;width:auto;padding:7px 12px;font-size:14px;margin:4px 4px 4px 0}
+.btns{display:flex;gap:8px}
+.btns .btn{flex:1;margin:10px 0}
+.timer{font-size:64px;font-weight:800;text-align:center;letter-spacing:2px;color:var(--y);line-height:1;margin:16px 0 8px;font-variant-numeric:tabular-nums}
+.timer.run{color:var(--g)}
+.timer.pause{color:var(--o)}
+.bar{height:10px;background:#0c0f22;border-radius:99px;overflow:hidden;margin:6px 0}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--b));border-radius:99px;width:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.badge{background:var(--card2);border-radius:14px;padding:8px 4px;text-align:center;font-size:12px;opacity:.35}
+.badge.on{opacity:1;border:1px solid var(--y)}
+.badge b{display:block;font-size:26px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#11142b;border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);z-index:20}
+nav a{flex:1;max-width:160px;background:none;border:none;color:var(--m);padding:8px 0 9px;font-size:11px;cursor:pointer;text-decoration:none;text-align:center}
+nav a b{display:block;font-size:22px}
+nav a.on{color:var(--y)}
+input,textarea,select{width:100%;background:#0c0f22;color:var(--t);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:16px;font-family:inherit}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--y);color:#1b1b1b;font-weight:800;padding:10px 18px;border-radius:99px;z-index:60;display:none;max-width:90%;text-align:center}
+.days{display:flex;justify-content:space-between;margin-top:8px}
+.days span{width:36px;height:36px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px}
+.days span.d{background:var(--g);color:#06331f;font-weight:800}
+.days span.t{outline:2px solid var(--y)}
+.book{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;background:var(--card2);border-radius:14px;margin:8px 0;border:2px solid transparent}
+.book.reading{border-color:var(--b)}
+.book.done{border-color:var(--g);background:#11493a}
+.book .ic{font-size:26px;flex:none}
+.book .tt{font-weight:700}
+.strow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.strow button{border:1px solid var(--line);background:#0c0f22;color:var(--m);border-radius:10px;padding:6px 10px;font-weight:800;font-size:13px;cursor:pointer}
+.strow button.on{background:var(--g);color:#06331f;border-color:var(--g)}
+.strow button.on.reading{background:var(--b);color:#062233;border-color:var(--b)}
+.prompt{font-size:20px;font-weight:800;margin:8px 0 4px;line-height:1.35}
+.prompt .en{display:block;color:#bfe9ff;font-size:16px;font-weight:700;margin-top:4px}
+.reward{background:var(--card2);border-radius:14px;padding:12px;margin:8px 0;border:2px dashed var(--line)}
+.reward.on{border-style:solid;border-color:var(--y);background:#3a3010}
+.hint{background:#11493a;border:1px solid var(--g);border-radius:14px;padding:12px;margin:8px 0}
+a.ylink{color:var(--b);font-weight:700;text-decoration:none}
+.row{display:flex;gap:8px;align-items:center}
+.addrow{display:flex;gap:8px;margin-top:8px}
+.addrow input{flex:1}
+.addrow .btn{width:auto;margin:0;padding:10px 14px;flex:none}
+.goalnum{font-size:28px;font-weight:800;color:var(--y)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="app"></div>
+<nav>
+  <a href="../"><b>🎯</b>练习站 Practice</a>
+  <a class="on" href="./"><b>📖</b>阅读闯关 Reading</a>
+  <a href="../year9/"><b>🏆</b>九年级书单 Year 9</a>
+</nav>
+<script>
+const KEY='jesse-reading-quest-v1';
+const DEFAULT_REWARD='Reward choice 奖励自选: e.g. +30 min game time 多玩半小时游戏 / pick weekend dinner 选周末晚饭';
+const SESSION=10;
+const BOOKS=[
+  {id:'dogman',ic:'🐶',title:'Dog Man',author:'Dav Pilkey',kind:'图像小说 Graphic novel',note:'好笑、图画多 Funny, lots of pictures'},
+  {id:'smile',ic:'😊',title:'Smile',author:'Raina Telgemeier',kind:'图像小说 Graphic novel',note:'真实校园故事，好读 A true school story, easy to read'},
+  {id:'newkid',ic:'🎒',title:'New Kid',author:'Jerry Craft',kind:'图像小说 Graphic novel',note:'漫画小说，讲转学的故事 A graphic novel about starting a new school'},
+  {id:'wimpy',ic:'📒',title:'Diary of a Wimpy Kid',author:'Jeff Kinney',kind:'漫画日记 Illustrated diary',note:'日记+简笔画，一页就能读完一点 Diary + doodles, easy to pick up'},
+  {id:'alex',ic:'🕵️',title:'Alex Rider',author:'Anthony Horowitz',kind:'冒险小说 Adventure',note:'从第一本 Stormbreaker 看起 Start with Stormbreaker'}
+];
+const PROMPTS=[
+  ['今天读到哪了？','Where are you up to?'],
+  ['谁最可疑？','Who is most suspicious?'],
+  ['你最喜欢哪个角色？','Which character do you like most?'],
+  ['接下来你猜会怎样？','What do you think happens next?'],
+  ['有没有一句让你想笑或想停下来的话？','Did any line make you smile or want to stop and think?'],
+  ['如果是你会怎么做？','What would you do in their place?'],
+  ['这一段最紧张的是哪里？','What was the most exciting part?'],
+  ['有谁让你意外了？','Did anyone surprise you?'],
+  ['你想不想知道后面发生什么？','Do you want to know what happens next?'],
+  ['把今天读的用一句话讲给妈妈听。','Tell Mum today’s reading in one sentence.']
+];
+const BADGES=[
+  ['first10','🌱','初读 First 10 min'],
+  ['streak3','🔥','3 天连续 3-day streak'],
+  ['streak7','🏆','7 天连续 7-day streak'],
+  ['xp100','🎁','100 XP 奖励解锁 Reward unlocked'],
+  ['halfhour','⏱️','一天 30 分钟 30 min in a day'],
+  ['picked','📚','自己挑了书 Picked a book']
+];
+const def={
+  xp:0,
+  minutes:{},
+  awarded:{},
+  badges:{},
+  books:{},
+  custom:[],
+  rewardText:DEFAULT_REWARD,
+  dailyGoal:10,
+  toldMum:{},
+  hideGoalSuggest:false,
+  promptI:0
+};
+let S;
+try{S=Object.assign({},def,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){S=Object.assign({},def)}
+if(!S.minutes)S.minutes={};
+if(!S.awarded)S.awarded={};
+if(!S.badges)S.badges={};
+if(!S.books)S.books={};
+if(!Array.isArray(S.custom))S.custom=[];
+if(!S.rewardText)S.rewardText=DEFAULT_REWARD;
+if(!S.dailyGoal)S.dailyGoal=10;
+if(!S.toldMum)S.toldMum={};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',2000)}
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fmt(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function level(){return Math.floor(S.xp/100)+1}
+function todayMin(){return S.minutes[today()]||0}
+function goalMet(d){return (S.minutes[d]||0)>=S.dailyGoal}
+function streak(){
+  let n=0;const d=new Date();
+  if(!goalMet(fmt(d)))d.setDate(d.getDate()-1);
+  for(let i=0;i<400;i++){
+    const k=fmt(d);
+    if(goalMet(k))n++;
+    else break;
+    d.setDate(d.getDate()-1);
+  }
+  return n;
+}
+function last7(){
+  const o=[],d=new Date();d.setDate(d.getDate()-6);
+  for(let i=0;i<7;i++){
+    o.push({n:'日一二三四五六'[d.getDay()],d:goalMet(fmt(d)),t:i===6});
+    d.setDate(d.getDate()+1);
+  }
+  return o;
+}
+const T={
+  running:false,
+  left:SESSION*60,
+  endAt:0,
+  tick:null
+};
+function remain(){
+  if(T.running)return Math.max(0,Math.ceil((T.endAt-Date.now())/1000));
+  return T.left;
+}
+function mmss(sec){
+  sec=Math.max(0,sec|0);
+  return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+}
+function startTimer(){
+  if(T.running)return;
+  if(T.left<=0)T.left=SESSION*60;
+  T.running=true;
+  T.endAt=Date.now()+T.left*1000;
+  loop();
+  render();
+}
+function pauseTimer(){
+  if(!T.running)return;
+  T.left=remain();
+  T.running=false;
+  clearTimeout(T.tick);
+  render();
+}
+function finishTimer(){
+  const left=remain();
+  const elapsed=Math.max(0,SESSION*60-left);
+  T.running=false;
+  clearTimeout(T.tick);
+  T.left=SESSION*60;
+  T.endAt=0;
+  if(elapsed<=0){toast('还没开始计时 Timer has not started');render();return;}
+  const mins=Math.max(1,Math.round(elapsed/60));
+  addMinutes(mins, left<=0?'读完 10 分钟 10 minutes done':'已记录 Logged');
+}
+function loop(){
+  clearTimeout(T.tick);
+  const r=remain();
+  const el=document.getElementById('clock');
+  if(el){
+    el.textContent=mmss(r);
+    el.className='timer '+(T.running?'run':(r<SESSION*60?'pause':''));
+  }
+  if(!T.running)return;
+  if(r<=0){
+    if(navigator.vibrate)navigator.vibrate([200,80,200]);
+    finishTimer();
+    return;
+  }
+  T.tick=setTimeout(loop,250);
+}
+function addMinutes(n,why){
+  n=Math.max(0,Math.round(Number(n)||0));
+  if(!n){toast('请输入分钟 Please enter minutes');return;}
+  const d=today();
+  S.minutes[d]=(S.minutes[d]||0)+n;
+  const should=Math.floor(S.minutes[d]/10)*10;
+  const got=S.awarded[d]||0;
+  const add=should-got;
+  if(add>0){S.xp+=add;S.awarded[d]=should;toast('+'+add+' XP '+(why||''));}
+  else toast('已记下 Logged '+n+' min · 再读 '+(10-(S.minutes[d]%10))+' 分钟就 +10 XP');
+  save();checkBadges();render();
+}
+function logManual(){
+  const el=document.getElementById('manualMin');
+  addMinutes(el&&el.value, '手动记录 Manual log');
+  if(el)el.value='';
+}
+function checkBadges(){
+  const unlock=(id,msg)=>{if(!S.badges[id]){S.badges[id]=true;toast('徽章 Badge: '+msg);}};
+  if((Object.values(S.minutes).reduce((a,b)=>a+b,0)>=10)||todayMin()>=10)unlock('first10','初读 First 10 min');
+  if(streak()>=3)unlock('streak3','3 天连续 3-day streak');
+  if(streak()>=7)unlock('streak7','7 天连续 7-day streak');
+  if(S.xp>=100)unlock('xp100','奖励解锁 Reward unlocked');
+  if(Object.values(S.minutes).some(m=>m>=30))unlock('halfhour','一天 30 分钟 30 min in a day');
+  const picked=Object.values(S.books).some(v=>v)&&true;
+  const customPicked=S.custom.length>0;
+  if(picked||customPicked)unlock('picked','自己挑了书 Picked a book');
+  save();
+}
+function setBook(id,st){
+  if(S.books[id]===st){delete S.books[id];}
+  else S.books[id]=st;
+  save();checkBadges();render();
+}
+function addBook(){
+  const t=(document.getElementById('newBook')||{}).value||'';
+  const title=t.trim();
+  if(!title){toast('先写书名 Please enter a title');return;}
+  S.custom.push({id:'c'+Date.now(),ic:'✨',title,author:'',kind:'我自己挑的 My pick',note:''});
+  const last=S.custom[S.custom.length-1];
+  S.books[last.id]='want';
+  save();checkBadges();render();
+  toast('已加入 Added ✓');
+}
+function allBooks(){return BOOKS.concat(S.custom)}
+function editReward(){
+  const v=prompt('家长编辑奖励 Parent: edit the reward',S.rewardText);
+  if(v==null)return;
+  const t=v.trim();
+  if(!t)return;
+  S.rewardText=t;save();render();toast('奖励已更新 Reward updated');
+}
+function setGoal(n){
+  S.dailyGoal=n;
+  if(n>=15)S.hideGoalSuggest=true;
+  save();render();toast('每日目标 Daily goal: '+n+' min');
+}
+function dismissSuggest(){S.hideGoalSuggest=true;save();render()}
+function nextPrompt(){S.promptI=((S.promptI||0)+1)%PROMPTS.length;save();render()}
+function promptToday(){
+  const start=Math.abs(today().split('-').join(''))%PROMPTS.length;
+  return PROMPTS[(start+(S.promptI||0))%PROMPTS.length];
+}
+function toldMum(){
+  const d=today();
+  S.toldMum[d]=!S.toldMum[d];
+  save();render();
+  if(S.toldMum[d])toast('太好了，妈妈爱听 Mum loves hearing this');
+}
+function bookCard(b){
+  const st=S.books[b.id]||'';
+  return `<div class="book ${esc(st)}"><span class="ic">${b.ic||'📘'}</span><div style="flex:1">
+    <div class="tt">${esc(b.title)}</div>
+    <div class="sub">${esc(b.author||'')}${b.author?' · ':''}${esc(b.kind||'')}</div>
+    ${b.note?`<div class="sub">${esc(b.note)}</div>`:''}
+    <div class="strow">
+      <button class="${st==='want'?'on':''}" onclick="setBook('${esc(b.id)}','want')">想读 Want it</button>
+      <button class="${st==='reading'?'on reading':''}" onclick="setBook('${esc(b.id)}','reading')">在读 Reading</button>
+      <button class="${st==='done'?'on':''}" onclick="setBook('${esc(b.id)}','done')">读完 Done</button>
+    </div>
+  </div></div>`;
+}
+function render(){
+  const d=today(), mins=todayMin(), goal=S.dailyGoal, st=streak(), lv=level();
+  const toNext=100-(S.xp%100), pctGoal=Math.min(100,mins/goal*100);
+  const r=remain();
+  const rewardOn=S.xp>=100;
+  const p=promptToday();
+  const showSuggest=st>=7 && goal===10 && !S.hideGoalSuggest;
+  const app=document.getElementById('app');
+  app.innerHTML=`
+  <div class="top">
+    <span class="pill">🔥 ${st} 天 days</span>
+    <span class="pill">⭐ Lv${lv} · ${S.xp} XP</span>
+    <span class="pill">📖 ${mins} / ${goal} min</span>
+  </div>
+  <div class="card hero">
+    <h1>📖 阅读闯关</h1>
+    <div class="sub">Reading Quest · Jesse · 每天先读 10 分钟 Just 10 minutes a day</div>
+    <div style="margin-top:12px;font-weight:800">今日目标 Today's goal</div>
+    <div class="bar"><i style="width:${pctGoal}%"></i></div>
+    <div class="sub" style="text-align:center"><span class="goalnum">${mins}</span> / ${goal} 分钟 minutes</div>
+    <div class="days">${last7().map(x=>`<span class="${x.d?'d':''} ${x.t?'t':''}">${x.n}</span>`).join('')}</div>
+    <div class="sub" style="text-align:center;margin-top:6px">绿圈 = 当天达标 Green = goal met</div>
+  </div>
+  ${showSuggest?`<div class="hint"><b>已经连续 7 天啦！You've done 7 days in a row!</b>
+    <div class="sub" style="color:#c8ffe8">可以把每日目标加到 15 分钟。You can raise the daily goal to 15 minutes.</div>
+    <div class="btns"><button class="btn go" onclick="setGoal(15)">好的，加到 15 分钟 Yes, make it 15</button></div>
+    <button class="btn sec" onclick="dismissSuggest()">暂时不用 Not yet</button>
+  </div>`:''}
+  <div class="card">
+    <h2>⏱️ 10 分钟计时 10-minute timer</h2>
+    <div class="sub">读完 10 分钟就 +10 XP · Finish 10 minutes, get +10 XP</div>
+    <div id="clock" class="timer ${T.running?'run':(r<SESSION*60?'pause':'')}">${mmss(r)}</div>
+    <div class="btns">
+      <button class="btn go" onclick="startTimer()">${T.running?'继续计时 Running…':'开始 Start'}</button>
+      <button class="btn warn" onclick="pauseTimer()">暂停 Pause</button>
+    </div>
+    <button class="btn" onclick="finishTimer()">完成 Finish</button>
+    <h3>手动记录 Manual log</h3>
+    <div class="sub">忘了开计时也没关系。You can log minutes if you forgot the timer.</div>
+    <div class="strow">
+      <button onclick="addMinutes(5,'手动 Manual')">+5 min</button>
+      <button onclick="addMinutes(10,'手动 Manual')">+10 min</button>
+      <button onclick="addMinutes(15,'手动 Manual')">+15 min</button>
+    </div>
+    <div class="addrow">
+      <input id="manualMin" type="number" min="1" max="180" inputmode="numeric" placeholder="分钟 Minutes">
+      <button class="btn small sec" onclick="logManual()">记下 Log</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🎖️ 等级与徽章 Levels & badges</h2>
+    <div class="sub">Lv${lv} · ${S.xp} XP · 再 ${toNext} XP 升到 Lv${lv+1} · ${toNext} XP to next level</div>
+    <div class="bar"><i style="width:${(S.xp%100)}%"></i></div>
+    <div class="grid">${BADGES.map(([id,ic,n])=>`<div class="badge ${S.badges[id]?'on':''}"><b>${ic}</b>${n}</div>`).join('')}</div>
+    <div class="reward ${rewardOn?'on':''}">
+      <div style="font-weight:800">${rewardOn?'🎁 奖励已解锁 Reward unlocked':'🎁 满 100 XP 解锁奖励 Unlock at 100 XP'} · 现在 ${S.xp} XP</div>
+      <p id="rewardTxt" style="margin:8px 0 0">${esc(S.rewardText)}</p>
+      <button class="btn small sec" onclick="editReward()">家长编辑奖励 Parent: edit reward</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🎧 先听后读 Listen first</h2>
+    <p class="sub">边听边看文字，一次大约 10 分钟，停在最想知道下文的地方。Listen while following the text, about 10 minutes, and stop at a cliffhanger.</p>
+    <p><b>斑点带子案 The Speckled Band</b> · Arthur Conan Doyle</p>
+    <a class="btn go" href="https://www.youtube.com/watch?v=dSvwTYQsigE" target="_blank" rel="noopener">简易英文有声书 Simple English audiobook ▶</a>
+    <a class="btn sec" href="https://www.youtube.com/watch?v=rI4fuGxy8Qs" target="_blank" rel="noopener">完整有声书 Full audiobook ▶</a>
+  </div>
+  <div class="card">
+    <h2>📚 自己挑书 Pick your book</h2>
+    <p class="sub">喜欢足球、游戏还是悬疑，都可以。从漫画小说开始也完全没问题。Football, games or mystery — start with a graphic novel if you like.</p>
+    ${allBooks().map(bookCard).join('')}
+    <h3>加上我自己的书 Add my own title</h3>
+    <div class="addrow">
+      <input id="newBook" maxlength="80" placeholder="书名 Book title">
+      <button class="btn small" onclick="addBook()">添加 Add</button>
+    </div>
+    <a class="btn sec" href="../year9/" style="margin-top:14px">学校书单 School book list（九年级 Year 9）→</a>
+  </div>
+  <div class="card">
+    <h2>💬 讲给妈妈听 Tell Mum</h2>
+    <p class="sub">晚饭时讲一句就行，不考试、不纠错。Just tell Mum one thing at dinner — no test, no corrections.</p>
+    <div class="prompt">${esc(p[0])}<span class="en">${esc(p[1])}</span></div>
+    <div class="btns">
+      <button class="btn sec" onclick="nextPrompt()">换一句 Another question</button>
+      <button class="btn ${S.toldMum[d]?'go':''}" onclick="toldMum()">${S.toldMum[d]?'今天讲过了 Told Mum ✓':'今天讲过了 I told Mum'}</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>⚙️ 说明 Notes</h2>
+    <p class="sub">进度只存在这台手机的浏览器里。Progress is saved on this phone only (localStorage).</p>
+    <p class="sub">每日目标从 10 分钟开始，连续 7 天后再加到 15 分钟。Daily goal starts at 10 minutes; consider 15 after a 7-day streak.</p>
+    <button class="btn small sec" onclick="setGoal(10)">目标 10 分钟 Goal 10</button>
+    <button class="btn small sec" onclick="setGoal(15)">目标 15 分钟 Goal 15</button>
+  </div>`;
+  loop();
+}
+document.addEventListener('visibilitychange',()=>{if(T.running)loop()});
+checkBadges();
+render();
+</script>
+</body>
+</html>
